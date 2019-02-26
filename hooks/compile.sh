@@ -1,4 +1,6 @@
 #!/bin/bash
+# verbose_flag($_VERBOSE_FLAG) is $2
+_VERBOSE_FLAG=$2
 CURRENT=`pwd`
 echo "================= COMPILE SCRIPT ================="
 executeDirectory="execute"
@@ -15,5 +17,9 @@ for ((c=1;c<=$1;c++)); do
 	echo "COMPILING $I: "
 	echo "--------------------------------------------------"
 	clang -emit-llvm -S $CURRENT/$sourceDirectory/$I.c
-	clang --save-temps=obj -v -Wall $CURRENT/$sourceDirectory/$I.c -o $CURRENT/$executeDirectory/$I
+	if [ $_VERBOSE_FLAG -eq 1 ]; then
+		clang --save-temps=obj -v -Wall $CURRENT/$sourceDirectory/$I.c -o $CURRENT/$executeDirectory/$I
+	elif [ $_VERBOSE_FLAG -eq 0 ]; then
+		clang --save-temps=obj -Wall $CURRENT/$sourceDirectory/$I.c -o $CURRENT/$executeDirectory/$I
+	fi
 done

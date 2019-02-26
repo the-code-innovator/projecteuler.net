@@ -1,0 +1,101 @@
+
+// void function() {
+// 	int **array = calloc(2, sizeof(int) * 3);
+// 	for (int i = 0; i < 2; i++) {
+// 		array[i] = calloc(3, sizeof(int));
+// 		for (int j = 0; j < 3; j++) {
+// 			printf("Enter Element @ (%d, %d): ", i, j);
+// 			scanf("%d", &array[i][j]);
+// 			printf("%d", array[i][j]);
+// 		}
+// 	}
+// }
+
+// void function_single() {
+// 	char *number = (char*)malloc(sizeof(char) * 50);
+// 	scanf("%s", number);
+// 	printf("%s", number);
+// }
+
+// -------------
+
+
+// 5537376230390876637302048746832985971773659831892672 - python
+// 5537376230390876637778520064931344666626574614790144 - c
+
+
+// output -- shell
+
+// aravind: projecteuler.net(master)$ python3 ./13.py 
+// 5537376230390876637302048746832985971773659831892672
+// aravind: projecteuler.net(master)$ python3 ./13.py 
+// 5537376230
+// aravind: projecteuler.net(master)$ clang -Wall ./13a.c 
+// aravind: projecteuler.net(master)$ ./a.out < 13-test.txt 
+// 5537376230390876637778520064931344666626574614790144.000000
+// aravind: projecteuler.net(master)$ clang -Wall ./13a.c 
+// aravind: projecteuler.net(master)$ ./a.out < 13-test.txt 
+// 5537376230
+// aravind: projecteuler.net(master)$ 
+
+
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+
+// unsigned max_sum(unsigned *array, unsigned long long index) {
+// 	if (dynamic[index] != -1U) {
+// 		return dynamic[index];
+// 	}
+// 	else if (isLastRow(array, ))
+// 	else {
+// 		dynamic[index] = max(dynamic[getLeftChild0(index)], dynamic[getRightChild0(index)]) + array[index];
+// 		return dynamic[index];
+// 	}
+// }
+
+	// printf("%d\n", isLastRow(pyramid, input, 3));
+	// printf("%llu\n", getRightChild(3ULL + 1ULL) - 1ULL);
+
+	// for (unsigned long long i = triangle_number(input) - 1ULL; i >= 0ULL; i--) {
+	// 	dynamic[i] = max_sum(pyramid, i);
+	// }
+	// --------------
+	
+	// unsigned long long step = 1ULL;
+	// unsigned long long stepper = 1ULL;
+	// for (unsigned long long i = 0ULL; i < triangle_number(input); i++) {
+	// 	if (i == step) {
+	// 		printf("\n");
+	// 		stepper += 1ULL;
+	// 		step = triangle_number(stepper);
+	// 	}
+	// 	printf("%u ", pyramid[i]);
+	// }
+
+
+	// for (unsigned long long i = 0ULL; i < input; i++) {
+	// 	for (unsigned long long j = triangle_number(i); j < triangle_number(i + 1ULL); j++) {
+	// 		printf("%u\t", pyramid[j]);
+	// 	}
+	// 	printf("\n");
+	// }
+
+	// printf("(%llu, %llu): %u\n", 2ULL, 1ULL, getElement(pyramid, 2ULL, 1ULL));
+	// printf("(%llu, %llu): %llu\n", 2ULL, 1ULL, getIndex(2ULL, 1ULL));
+
+	// printf("%u\n", max_sum(pyramid, 0));
+
+
+----------------------------------------------------------------------------------------
+
+unsigned getElement(unsigned *tree, unsigned long long i, unsigned long long j) {return tree[getIndex(i, j)];}
+unsigned long long getLeftChild(unsigned long long parentIndex) {return (2ULL * parentIndex);}
+unsigned long long getRightChild(unsigned long long parentIndex) {return (2ULL * parentIndex) + 1ULL;}
+unsigned long long getLeftChild0(unsigned long long parentIndex) {return (getLeftChild(parentIndex + 1ULL) - 1ULL);}
+unsigned long long getRightChild0(unsigned long long parentIndex) {return (getRightChild(parentIndex + 1ULL) - 1ULL);}
+bool isLastRow(unsigned *tree, unsigned long long treeHeight, unsigned long long index) {
+	return (index > triangle_number(treeHeight - 1)) && (index <= triangle_number(treeHeight));
+}

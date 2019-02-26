@@ -16,36 +16,54 @@
 // 1 <= N <= 3000
 
 #include <stdio.h>
+#include <math.h>
 #include <stdlib.h>
 
-int pythagoreanTriplets(int limit) {
-	int a = 0;
-	int b = 0;
-	int c = 0;
-	int m = 2;
-	while (c < limit) {
-		for (int n = 1; n < m; n++) {
-			a = (m * m) - (n * n);
-			b = (2 * m * n);
-			c = (m * m) + (n * n);
-			int sumE = ((a + b + c) == limit) ? 1 : 0;
-			int value = (sumE == 1) ? (a * b * c) : 0;
-			if (value != 0) {
-				return value;
-			}
-		}
-		m++;
+typedef struct pythagorean_triplet {
+	double adjacent;
+	double opposite;
+	double hypotentuse;
+} triplet_t;
+
+triplet_t __initialise__(double m, double n) {
+	triplet_t found = {(pow(n, 2.0) - pow(m, 2.0)), (2.0 * m * n), (pow(m, 2.0) + pow(n, 2.0))};
+	return found;
+}
+
+triplet_t get_triplet(double input) {
+	return __initialise__(input, (input + 1.0));
+}
+
+triplet_t* __get_triplet_array__(int count) {
+	triplet_t *triplet_array;
+	triplet_array = calloc(count, sizeof(triplet_t));
+	for (int i = 0; i < count; i++) {
+		triplet_array[i] = get_triplet((double)(i + 1));
 	}
-	return -1;
+	return triplet_array;
+}
+
+triplet_t* get_array(int count) {
+	return __get_triplet_array__(count);
+}
+
+void __put_triplet__(triplet_t input) {
+	printf("<%.0lF, %.0lF, %.0lF>\n", input.adjacent, input.opposite, input.hypotentuse);
+}
+
+void __put_triplet_array__(triplet_t* array) {
+	for (int i = 0; i < (sizeof(array) / sizeof(triplet_t)); i++) {
+		__put_triplet__(array[i]);
+	}
+}
+
+void put_array(triplet_t* input_array) {
+	__put_triplet_array__(input_array);
 }
 
 int main(int argc, char *argv[]) {
-	int t;
-	scanf("%d", &t);
-	while (t--) {
-		int n;
-		scanf("%d", &n);
-		printf("%d\n", pythagoreanTriplets(n));
-	}
+	triplet_t *array;
+	array = get_array(5);
+	put_array(array);
 	return 0;
 }
